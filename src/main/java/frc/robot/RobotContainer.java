@@ -5,7 +5,8 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.subsystems.Sensor;
+import frc.robot.subsystems.BreakSensor;
+import frc.robot.subsystems.UltraSonicSensor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -25,11 +26,13 @@ public class RobotContainer {
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
-      public Sensor sensor;
+      public BreakSensor breakSensor;
+      public UltraSonicSensor ultrasonic;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    sensor = new Sensor();
+    breakSensor = new BreakSensor();
+    ultrasonic = new UltraSonicSensor();
     // Configure the trigger bindings
     configureBindings();
   }
