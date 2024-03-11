@@ -5,8 +5,13 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.Commands.Motor_Commands;
 import frc.robot.subsystems.BreakSensor;
+import frc.robot.subsystems.LightSensor;
+import frc.robot.subsystems.MotorTester;
+import frc.robot.subsystems.ShortDistance;
 import frc.robot.subsystems.UltraSonicSensor;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -28,11 +33,19 @@ public class RobotContainer {
 
       public BreakSensor breakSensor;
       public UltraSonicSensor ultrasonic;
+      public Motor_Commands command;
+      public MotorTester motor;
+      public ShortDistance shortDistance;
+      public LightSensor lightSensor;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    motor = new MotorTester();
     breakSensor = new BreakSensor();
     ultrasonic = new UltraSonicSensor();
+    shortDistance = new ShortDistance();
+    lightSensor = new LightSensor();
+    command = new Motor_Commands(motor);
     // Configure the trigger bindings
     configureBindings();
   }
@@ -47,6 +60,7 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
+    motor.setDefaultCommand(command.setMotor(()-> MathUtil.applyDeadband(m_driverController.getLeftY(), 0.1)));
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,

@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class UltraSonicSensor extends SubsystemBase {
     Ultrasonic sensor = new Ultrasonic(2, 1);
     private final MedianFilter filter = new MedianFilter(5);
+    
     public UltraSonicSensor(){
         sensor.setEnabled(true);
         Ultrasonic.setAutomaticMode(true);
